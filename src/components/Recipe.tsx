@@ -23,8 +23,10 @@ const Recipe = (props: RecipeProps) => {
 
   return (
     <div className="recipe_item">
-      <h3>{label} </h3>
-      <img src={image} alt={label} onClick={() => handleClick()} />
+      <div className="pic_div">
+        <img src={image} alt={label} onClick={() => handleClick()} />
+        <h3>{label} </h3>
+      </div>
       <div className="first_div">
         <p>
           <strong>Calories:</strong> {calories}
@@ -33,16 +35,16 @@ const Recipe = (props: RecipeProps) => {
           <strong>Cuisine Type:</strong> {cuisineType.join(", ")}
         </p>
         <p>
-        <strong>Dish Type:</strong> {dishType.join(", ")}
-      </p>
+          <strong>Dish Type:</strong> {dishType.join(", ")}
+        </p>
       </div>
 
-      <ul>
+      {/* <ul>
         <strong>Ingredients:</strong>
         {ingredientLines.map((ingredient) => {
           return <li key={ingredient}>{ingredient}</li>;
         })}
-      </ul>
+      </ul> */}
     </div>
   );
 };

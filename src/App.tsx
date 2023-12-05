@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
 import RecipeForm from "./components/RecipeForm";
 import { customAxios as Axios, baseURL } from "./services/customAxios";
@@ -17,6 +17,7 @@ export type Recipe = {
 function App() {
   const [inputText, setInputText] = useState<string>("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const prevInput = useRef<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
@@ -42,24 +43,32 @@ function App() {
       .catch((err) => {
         console.error(err);
       });
+    prevInput.current = inputText;
     setInputText("");
   };
 
-  console.log(recipes);
+  console.log("inputText", inputText);
+  console.log("prevInput", prevInput.current);
 
   return (
     <div className="App">
-      <h1>Find the Perfect Recipe</h1>
-      <RecipeForm
-        inputText={inputText}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-      />
-      <br />
+      <div className="main_container">
+        <div className="title_container">
+          <h1>Free Recipes</h1>
+          <h2>For Everyone</h2>
+        </div>
+        <RecipeForm
+          inputText={inputText}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
+      </div>
       {recipes.length ? (
-        <Recipes recipes={recipes} />
-      ) : (
+        <Recipes recipes={recipes} prevInput={prevInput.current} />
+      ) : !recipes.length && prevInput.current ? (
         <h2>No Recipes Found</h2>
+      ) : (
+        <></>
       )}
     </div>
   );

@@ -10,7 +10,7 @@ const RecipeForm = (props: Props) => {
   const { inputText, handleChange, handleSubmit } = props;
 
   return (
-    <div>
+    <div className="input_container">
       <form action="submit" onSubmit={handleSubmit}>
         <input type="text" value={inputText} onChange={handleChange} />
         <button type="submit">Search</button>
