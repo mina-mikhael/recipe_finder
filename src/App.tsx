@@ -7,6 +7,7 @@ import Recipes from "./components/Recipes";
 export type Recipe = {
   label: string;
   image: string;
+  images?: { REGULAR: { url: string } };
   cuisineType: string[];
   ingredientLines: string[];
   calories: number;
@@ -29,17 +30,19 @@ function App() {
     e.preventDefault();
     Axios.get(`${baseURL}q=${inputText}`)
       .then((res) => {
-        const results: Recipe[] = res.data.hits.map((hit: any): Recipe => {
-          return {
-            label: hit.recipe.label,
-            image: hit.recipe.images.REGULAR.url,
-            cuisineType: hit.recipe.cuisineType,
-            ingredientLines: hit.recipe.ingredientLines,
-            calories: Math.round(hit.recipe.calories),
-            dishType: hit.recipe.dishType,
-            url: hit.recipe.url,
-          };
-        });
+        const results: Recipe[] = res.data.hits.map(
+          (hit: { recipe: Recipe }): Recipe => {
+            return {
+              label: hit.recipe.label,
+              image: hit.recipe?.images?.REGULAR?.url || "",
+              cuisineType: hit.recipe.cuisineType,
+              ingredientLines: hit.recipe.ingredientLines,
+              calories: Math.round(hit.recipe.calories),
+              dishType: hit.recipe.dishType,
+              url: hit.recipe.url,
+            };
+          }
+        );
         setRecipes(results || []);
       })
       .catch((err) => {

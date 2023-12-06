@@ -11,7 +11,11 @@ const Recipes = (props: Props) => {
   const { recipes, prevInput } = props;
   return (
     <div className="recipes_main">
-      <h2 style={{ textAlign: "center" }}>{`${prevInput} Results`}</h2>
+      <h2
+        style={{
+          textAlign: "center",
+          textTransform: "capitalize",
+        }}>{`${prevInput} results`}</h2>
       <div className="recipes_container">
         {recipes.map((el, idx) => {
           return <Recipe key={el.label + idx} recipe={el} />;
