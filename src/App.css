@@ -43,9 +43,10 @@ body {
   background: url("./assets/main.jpg") no-repeat bottom fixed;
   position: sticky;
   top: -15rem;
+  z-index: 3;
 }
 
-.recipes_main h2 {
+h2 {
   color: #eaeaea;
   text-align: center;
   font-size: 2.5rem;
@@ -60,16 +61,14 @@ body {
   max-width: fit-content;
   padding: 1.5rem 2rem;
   border-radius: 1rem;
+  z-index: 3;
 }
 
 .recipes_container {
   max-width: 1400px;
   margin: 20px auto;
   padding: 20px;
-  /* background: rgba(255, 255, 255, 0.867); */
-  /* border-radius: 8px; */
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-  overflow: hidden; /* Added to maintain border-radius */
+  overflow: hidden;
 }
 
 .title_container {
@@ -143,13 +142,15 @@ button:hover {
 .recipe_item {
   background: #f1f1f1;
   border-radius: 8px;
-  overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: 40rem;
   overflow-y: hidden;
   padding-top: 0;
 }
 
+.recipe_item.active {
+  overflow-y: auto;
+}
 .recipe_item img {
   width: 94%;
   margin: 1rem auto;
@@ -161,7 +162,7 @@ button:hover {
   top: 1rem;
   box-shadow: 0 2px 5px rgba(52, 52, 52, 0.315);
 }
-.recipe_item img:hover {
+.recipe_item img.active {
   border-radius: 0.2rem;
   width: 98%;
 }
@@ -169,6 +170,32 @@ button:hover {
 .first_div {
   padding: 15px;
   border-top: 1px solid #ddd;
+  transition: all 0.25s ease-in-out;
+  display: none;
+}
+
+.first_div.active {
+  display: block;
+  transition: all 0.25s ease-in-out;
+}
+
+.second_div {
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  transition: all 0.25s ease-in-out;
+  display: none;
+}
+
+.second_div.active {
+  display: block;
+  transition: all 0.25s ease-in-out;
+  overflow-y: auto;
+}
+
+.first_div,
+.second_div:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
 }
 
 .recipe_item ul {
@@ -194,16 +221,28 @@ button:hover {
 }
 
 .learn_more {
+  color: rgb(246, 246, 246);
+  text-decoration: none;
+  font-size: 2em;
+  background-color: #44474929;
   margin: 0;
-  padding: 0;
-  top: 45%;
-  left: 35%;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  position: absolute;
+  left: calc(50% - 6rem);
+  top: 11rem;
+  z-index: 1;
+  display: none;
 }
 
-.learn_more button {
-  display: none;
-  padding: 10px 20px;
-  background-color: rgba(164, 164, 164, 0.496);
+.learn_more.active {
+  display: inline;
+  transition: all 0.25s ease-in-out;
+}
+
+.learn_more.active:hover {
+  background-color: #444749;
+  cursor: pointer;
 }
 @media screen and (min-width: 600px) {
   .recipe_item img {

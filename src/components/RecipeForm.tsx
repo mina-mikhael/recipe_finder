@@ -12,8 +12,13 @@ const RecipeForm = (props: Props) => {
   return (
     <div className="input_container">
       <form action="submit" onSubmit={handleSubmit}>
-        <input type="text" value={inputText} onChange={handleChange} />
-        <button type="submit">Search</button>
+        <input
+          type="text"
+          value={inputText}
+          onChange={handleChange}
+          placeholder="type to search for a recipe, ex: seafood pizza"
+        />
+        {inputText.length > 0 && <button type="submit">Search</button>}
       </form>
     </div>
   );

@@ -17,6 +17,7 @@ export type Recipe = {
 function App() {
   const [inputText, setInputText] = useState<string>("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const prevInput = useRef<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +25,7 @@ function App() {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     e.preventDefault();
     Axios.get(`${baseURL}q=${inputText}`)
       .then((res) => {
@@ -42,6 +44,9 @@ function App() {
       })
       .catch((err) => {
         console.error(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
     prevInput.current = inputText;
     setInputText("");
@@ -65,8 +70,8 @@ function App() {
       </div>
       {recipes.length ? (
         <Recipes recipes={recipes} prevInput={prevInput.current} />
-      ) : !recipes.length && prevInput.current ? (
-        <h2>No Recipes Found</h2>
+      ) : !recipes.length && prevInput.current && !isLoading ? (
+        <h2 style={{ textAlign: "center" }}>No Recipes Found</h2>
       ) : (
         <></>
       )}
