@@ -74,7 +74,7 @@ function App() {
       {recipes.length ? (
         <Recipes recipes={recipes} prevInput={prevInput.current} />
       ) : !recipes.length && prevInput.current && !isLoading ? (
-        <h2 style={{ textAlign: "center" }}>No Recipes Found</h2>
+        <h2 style={{ textAlign: "center" }}>No Recipes Found!</h2>
       ) : (
         <></>
       )}
